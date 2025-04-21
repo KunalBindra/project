@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Footballer Stats Visualizations</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@1.2.0/dist/chartjs-chart-matrix.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 40px 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .dashboard-frame {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .chart-container {
+  max-width: 800px;
+  height: 400px; /* ensures the heatmap has height to fill */
+  margin: 60px auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+}
+
+
+
+    .chart-box {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+    .back-link {
+      display: block;
+      text-align: center;
+      margin: 40px auto 0;
+      padding: 12px 24px;
+      background-color: #4bc0c0;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+      width: max-content;
+    }
+    .back-link:hover {
+      background-color: #36a2eb;
+    }
+    .chart-container {
+  max-width: 800px;
+  height: 400px; /* or 500px for more vertical space */
+  margin: 60px auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+}
+
+
+  </style>
+</head>
+<body>
+  <h1>📊 Footballer Stats - Visual Charts</h1>
+  <div class="dashboard-frame">
+    <div class="chart-box"><canvas id="barChart"></canvas></div>
+    <div class="chart-box"><canvas id="scatterChart"></canvas></div>
+    <div class="chart-box"><canvas id="pieChart"></canvas></div>
+    <div class="chart-box"><canvas id="stackedBarChart"></canvas></div>
+    <div class="chart-box"><canvas id="radarChart"></canvas></div>
+    <div class="chart-box"><canvas id="lineChart"></canvas></div>
+    <div class="chart-box"><canvas id="heatmapChart"></canvas></div>
+  </div>
+
+  <a href="index.html" class="back-link">⬅️ Back to Dashboard</a>
+
+  <!-- Keep your script exactly the same -->
+  <script>
+    const players = [
+      { name: "Cristiano Ronaldo", goals: 850, assists: 240, matches: 1200 },
+      { name: "Lionel Messi", goals: 820, assists: 320, matches: 1100 },
+      { name: "Neymar Jr", goals: 450, assists: 250, matches: 700 },
+      { name: "David Beckham", goals: 130, assists: 160, matches: 700 },
+      { name: "Kevin De Bruyne", goals: 100, assists: 240, matches: 600 },
+      { name: "Mohamed Salah", goals: 250, assists: 100, matches: 500 },
+      { name: "Robert Lewandowski", goals: 600, assists: 150, matches: 850 },
+      { name: "Harry Kane", goals: 350, assists: 80, matches: 550 },
+      { name: "Toni Kroos", goals: 80, assists: 100, matches: 700 },
+      { name: "Casemiro", goals: 70, assists: 40, matches: 550 }
+    ];
+
+    // Bar Chart
+   // Bar Chart: Matches by Player (Improved Fill & Styling)
+const maxMatches = Math.max(...players.map(p => p.matches));
+
+new Chart(document.getElementById("barChart"), {
+  type: 'bar',
+  data: {
+    labels: players.map(p => p.name),
+    datasets: [{
+      label: 'Matches',
+      data: players.map(p => p.matches),
+      backgroundColor: '#36a2eb',
+      barThickness: 30
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Matches Played by Players',
+        padding: { top: 10, bottom: 20 }
+      },
+      legend: { display: false }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        suggestedMax: maxMatches + 100,
+        ticks: { stepSize: 200 }
+      },
+      x: {
+        ticks: {
+          autoSkip: false,
+          maxRotation: 45,
+          minRotation: 30
+        }
+      }
+    }
+  }
+});
+
+
+        // Scatter Chart: Assists vs Goals
+        // Scatter Chart: Assists vs Goals (Improved Fill & Styling)
+const scatterColors = [
+  '#ff6384', '#36a2eb', '#ffcd56', '#4bc0c0', '#9966ff',
+  '#c9cbcf', '#7ec850', '#d87093', '#8b4513', '#20b2aa'
+];
+
+const maxGoals = Math.max(...players.map(p => p.goals));
+const maxAssists = Math.max(...players.map(p => p.assists));
+
+new Chart(document.getElementById("scatterChart"), {
+  type: 'scatter',
+  data: {
+    datasets: players.map((p, index) => ({
+      label: p.name,
+      data: [{ x: p.goals, y: p.assists }],
+      backgroundColor: scatterColors[index % scatterColors.length],
+      pointRadius: 6
+    }))
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Assists vs Goals (Scatter Plot)',
+        padding: { top: 10, bottom: 20 }
+      },
+      legend: {
+        position: 'bottom',
+        labels: {
+          boxWidth: 12,
+          font: { size: 12 }
+        }
+      }
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Goals'
+        },
+        suggestedMin: 0,
+        suggestedMax: maxGoals + 100,
+        ticks: {
+          stepSize: 100
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Assists'
+        },
+        suggestedMin: 0,
+        suggestedMax: maxAssists + 50,
+        ticks: {
+          stepSize: 50
+        }
+      }
+    }
+  }
+});
+
+
+
+    // Pie Chart
+    new Chart(document.getElementById("pieChart"), {
+      type: 'pie',
+      data: {
+        labels: players.map(p => p.name),
+        datasets: [{
+          label: 'Goals',
+          data: players.map(p => p.goals),
+          backgroundColor: [
+            '#ff6384', '#36a2eb', '#ffcd56', '#4bc0c0', '#9966ff',
+            '#c9cbcf', '#7ec850', '#d87093', '#8b4513', '#20b2aa'
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: { display: true, text: 'Goals by Player (Pie Chart)' }
+        }
+      }
+    });
+
+    // Stacked Bar Chart: Goals + Assists (Enhanced Layout)
+const maxStat = Math.max(...players.map(p => p.goals + p.assists));
+
+new Chart(document.getElementById("stackedBarChart"), {
+  type: 'bar',
+  data: {
+    labels: players.map(p => p.name),
+    datasets: [
+      {
+        label: 'Goals',
+        data: players.map(p => p.goals),
+        backgroundColor: '#4bc0c0',
+        barThickness: 30
+      },
+      {
+        label: 'Assists',
+        data: players.map(p => p.assists),
+        backgroundColor: '#ff9f40',
+        barThickness: 30
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Goals + Assists (Stacked Bar)',
+        padding: { top: 10, bottom: 20 }
+      },
+      legend: {
+        position: 'top'
+      }
+    },
+    scales: {
+      x: {
+        stacked: true,
+        ticks: {
+          autoSkip: false,
+          maxRotation: 45,
+          minRotation: 30
+        }
+      },
+      y: {
+        stacked: true,
+        beginAtZero: true,
+        suggestedMax: maxStat + 100,
+        ticks: { stepSize: 200 }
+      }
+    }
+  }
+});
+
+
+    // Radar Chart
+    const top5 = players.slice(0, 5);
+    new Chart(document.getElementById("radarChart"), {
+      type: 'radar',
+      data: {
+        labels: ['Goals', 'Assists', 'Matches'],
+        datasets: top5.map(p => ({
+          label: p.name,
+          data: [p.goals/10, p.assists/10, p.matches/10],
+          fill: true
+        }))
+      },
+      options: {
+        responsive: true,
+        plugins: { title: { display: true, text: 'Top 5 Players Skill Radar' } },
+        scales: { r: { beginAtZero: true } }
+      }
+    });
+
+    // Line Chart
+    // Line Chart: Cumulative Goals over Time (Enhanced)
+const timeline = ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'];
+
+new Chart(document.getElementById("lineChart"), {
+  type: 'line',
+  data: {
+    labels: timeline,
+    datasets: players.slice(0, 3).map((p, idx) => ({
+      label: p.name,
+      data: timeline.map((_, i) => Math.floor((p.goals * (i + 1)) / 10)),
+      fill: false,
+      borderColor: ['#36a2eb', '#ff6384', '#ffcd56'][idx],
+      tension: 0.4,
+      pointRadius: 4,
+      pointHoverRadius: 6,
+      borderWidth: 3
+    }))
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Cumulative Goals over Time',
+        padding: { top: 10, bottom: 20 }
+      },
+      legend: {
+        position: 'top'
+      }
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Year'
+        },
+        ticks: {
+          maxRotation: 0,
+          minRotation: 0
+        }
+      },
+      y: {
+        beginAtZero: true,
+        suggestedMax: 1000,
+        title: {
+          display: true,
+          text: 'Cumulative Goals'
+        }
+      }
+    }
+  }
+});
+
+// Heatmap: Enhanced Interactive Matrix
+const heatLabelsX = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Extra1', 'Extra2', 'Extra3'];
+const heatLabelsY = ['Ronaldo', 'Messi', 'Neymar', 'Beckham', 'De Bruyne', 'Salah', 'Lewandowski', 'Kane', 'Kroos', 'Casemiro'];
+
+const enhancedHeatData = [];
+for (let y = 0; y < heatLabelsY.length; y++) {
+  for (let x = 0; x < heatLabelsX.length; x++) {
+    enhancedHeatData.push({
+      x: x,
+      y: y,
+      v: Math.floor(Math.random() * 100)
+    });
+  }
+}
+
+new Chart(document.getElementById("heatmapChart"), {
+  type: 'matrix',
+  data: {
+    datasets: [{
+      label: 'Performance Intensity',
+      data: enhancedHeatData,
+      backgroundColor(context) {
+        const value = context.dataset.data[context.dataIndex].v;
+        const r = Math.floor(255 * (value / 100));
+        const g = Math.floor(255 * (1 - value / 100));
+        return `rgba(${r}, ${g}, 120, 0.9)`; // Gradient from green to red
+      },
+      borderColor: 'rgba(255,255,255,0.5)',
+      borderWidth: 1,
+      width: ({ chart }) => (chart.chartArea || {}).width / heatLabelsX.length - 4,
+      height: ({ chart }) => (chart.chartArea || {}).height / heatLabelsY.length - 4
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Heatmap: Player Intensity by Day',
+        padding: { top: 10, bottom: 20 }
+      },
+      tooltip: {
+        callbacks: {
+          title: ctx => `Day: ${heatLabelsX[ctx[0].raw.x]}`,
+          label: ctx => `${heatLabelsY[ctx.raw.y]} - Intensity: ${ctx.raw.v}`
+        }
+      },
+      legend: { display: false }
+    },
+    scales: {
+      x: {
+        ticks: {
+          callback: val => heatLabelsX[val],
+          color: '#333',
+          font: { weight: 'bold' }
+        },
+        grid: { display: false },
+        title: {
+          display: true,
+          text: 'Days of the Week'
+        },
+        min: 0,
+        max: heatLabelsX.length
+      },
+      y: {
+        ticks: {
+          callback: val => heatLabelsY[val],
+          color: '#333',
+          font: { weight: 'bold' }
+        },
+        grid: { display: false },
+        title: {
+          display: true,
+          text: 'Players'
+        },
+        reverse: true,
+        min: 0,
+        max: heatLabelsY.length
+      }
+    }
+  }
+});
+
+  </script>
+</body>
+</html>

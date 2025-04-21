@@ -1,0 +1,116 @@
+[
+    {
+      "name": "Cristiano Ronaldo",
+      "country": "Portugal",
+      "position": "Forward",
+      "image": "cr7.png",
+      "club": "Al-Nassr",
+      "goals": 850,
+      "assists": 240,
+      "matches": 1200,
+      "trophies": 35
+    },
+    {
+      "name": "Lionel Messi",
+      "country": "Argentina",
+      "position": "Forward",
+      "image": "messi.jpeg",
+      "club": "Inter Miami",
+      "goals": 820,
+      "assists": 320,
+      "matches": 1100,
+      "trophies": 44
+    },
+    {
+      "name": "Neymar Jr",
+      "country": "Brazil",
+      "position": "Forward",
+      "image": "neymar.jpg",
+      "club": "Al-Hilal",
+      "goals": 450,
+      "assists": 250,
+      "matches": 700,
+      "trophies": 25
+    },
+    {
+      "name": "David Beckham",
+      "country": "England",
+      "position": "Midfielder",
+      "image": "beckham.jpg",
+      "club": "Retired",
+      "goals": 130,
+      "assists": 160,
+      "matches": 700,
+      "trophies": 19
+    },
+    {
+      "name": "Kevin De Bruyne",
+      "country": "Belgium",
+      "position": "Midfielder",
+      "image": "debruyne.jpg",
+      "club": "Manchester City",
+      "goals": 100,
+      "assists": 240,
+      "matches": 600,
+      "trophies": 18
+    },
+  
+    {
+      "name": "Mohamed Salah",
+      "country": "Egypt",
+      "position": "Forward",
+      "image": "salah.jpg",
+      "club": "Liverpool",
+      "goals": 250,
+      "assists": 100,
+      "matches": 500,
+      "trophies": 10
+    },
+    {
+      "name": "Robert Lewandowski",
+      "country": "Poland",
+      "position": "Forward",
+      "image": "lewandowski.jpg",
+      "club": "FC Barcelona",
+      "goals": 600,
+      "assists": 150,
+      "matches": 850,
+      "trophies": 30
+    },
+    
+    {
+      "name": "Harry Kane",
+      "country": "England",
+      "position": "Forward",
+      "image": "harry cane.jpg",
+      "club": "Bayern Munich",
+      "goals": 350,
+      "assists": 80,
+      "matches": 550,
+      "trophies": 0
+    },
+    
+    
+    {
+      "name": "Toni Kroos",
+      "country": "Germany",
+      "position": "Midfielder",
+      "image": "kroos.jpg",
+      "club": "Real Madrid",
+      "goals": 80,
+      "assists": 100,
+      "matches": 700,
+      "trophies": 30
+    },
+    {
+      "name": "Casemiro",
+      "country": "Brazil",
+      "position": "Midfielder",
+      "image": "cs.jpg",
+      "club": "Manchester United",
+      "goals": 70,
+      "assists": 40,
+      "matches": 550,
+      "trophies": 18
+    }
+  ]

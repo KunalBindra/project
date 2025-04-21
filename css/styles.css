@@ -1,0 +1,64 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #000000;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  color: #fffefe;
+}
+
+#search {
+  padding: 10px;
+  width: 250px;
+  margin-bottom: 20px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.player-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 250px;
+  padding: 15px;
+  transition: transform 0.3s;
+}
+
+.player-card:hover {
+  transform: scale(1.05);
+}
+
+.player-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.player-card h2 {
+  margin: 10px 0 5px;
+}
+
+.stats {
+  text-align: left;
+  margin-top: 10px;
+}
+.chart-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #4bc0c0;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+}
+.chart-link:hover {
+  background: #36a2eb;
+}
